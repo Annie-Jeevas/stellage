@@ -1,0 +1,19 @@
+2016-12-17 22:50:34,380  INFO  ¬ход в Home/Index
+2016-12-17 22:50:51,412  INFO  ¬ход в Home/Index
+2016-12-17 22:54:55,404  INFO  ¬ход в Home/Index
+2016-12-17 23:13:14,583  INFO  ¬ход в Home/Index
+2016-12-17 23:13:40,964  INFO  Manager0ff47cb3-f6d3-4466-a530-c6d4491a6959 wants to edit request 1
+2016-12-17 23:13:51,674  INFO  Manager0ff47cb3-f6d3-4466-a530-c6d4491a6959 wants to edit request 2
+2016-12-17 23:13:56,033  INFO  Manager0ff47cb3-f6d3-4466-a530-c6d4491a6959 changed the status of request 2 with ѕрин€то
+2016-12-17 23:15:24,411  INFO  Manager0ff47cb3-f6d3-4466-a530-c6d4491a6959 wants to edit requests
+2016-12-17 23:15:29,122  INFO  ¬ход в Home/Index
+2016-12-17 23:15:30,778  INFO  About
+2016-12-17 23:15:32,085  INFO  Contact
+2016-12-17 23:15:35,433  INFO  ¬ход в Home/Index
+2016-12-17 23:15:47,282  INFO  ¬ход в Home/Index
+2016-12-17 23:15:49,620  INFO  Reading book 9
+2016-12-17 23:15:57,827  INFO  User11f7cf6e-dda7-45c4-a96f-75db00646b4f wants to watch his requests
+2016-12-17 23:16:02,128  INFO  User11f7cf6e-dda7-45c4-a96f-75db00646b4f wants to watch his requests
+2016-12-17 23:16:06,698  INFO  MyBooks
+2016-12-17 23:16:10,717  INFO  User11f7cf6e-dda7-45c4-a96f-75db00646b4f wants to delete book 3 from Favourites
+2016-12-17 23:16:12,856  INFO  MyBooks

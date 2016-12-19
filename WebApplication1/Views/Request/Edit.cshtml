@@ -1,0 +1,43 @@
+﻿@model WebApplication1.Models.Request
+
+@{
+    ViewBag.Title = "Edit";
+    List<SelectListItem> statuses = new List<SelectListItem>();
+    statuses.Add(new SelectListItem { Value = "Исполнено", Text = "Исполнено" });
+    statuses.Add(new SelectListItem { Value = "Отказано", Text = "Отказано" });
+    statuses.Add(new SelectListItem { Value = "Принято", Text = "Принято" });
+    statuses.Add(new SelectListItem { Value = "Составлена", Text = "Составлена" });
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Request</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Status, statuses, statuses)
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "../Manage/IndexManager")
+</div>

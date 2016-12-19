@@ -1,0 +1,42 @@
+﻿@model WebApplication1.Models.Book
+
+@{
+    ViewBag.Title = "Reading";
+    List<WebApplication1.Models.Comment> comm = (List<WebApplication1.Models.Comment>)ViewData["Comm"];
+    WebApplication1.Models.Entities e = new WebApplication1.Models.Entities();
+
+
+
+}
+
+<h2>@Model.Name</h2>
+@{
+    try
+    {
+        FileStream fs = new FileStream(Model.File, FileMode.Open);
+        StreamReader sr = new StreamReader(fs);
+        String[] abzacy = sr.ReadToEnd().Split('\n');
+        foreach (String abzac in abzacy)
+        {
+        <p>@abzac</p>
+        }
+    }
+    catch
+    { <p>Извините, чтение этой книги временно недоступно</p>}
+}
+
+
+<h1>Комментарии</h1>
+@foreach (WebApplication1.Models.Comment b in comm)
+{
+    <div class="jumbotron">
+        <h3>Автор: @e.AspNetUsers.Find(b.Id_author).UserName</h3>
+        <p>@b.Text</p>
+        <h3>Оценка: @b.Grade</h3>
+    </div>
+}
+
+<footer class="modal-footer">
+    <p>@Html.ActionLink("Оставить отзыв", "../Comment/Create", new { id_book = Model.Id })</p>
+</footer>
+

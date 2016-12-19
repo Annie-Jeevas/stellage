@@ -1,0 +1,132 @@
+﻿@model WebApplication1.Models.IndexViewModel
+@{
+    ViewBag.Title = "Управление";
+
+    List<WebApplication1.Models.Request> lastestRequets = (List<WebApplication1.Models.Request>)ViewData["Req"];
+    List<WebApplication1.Models.Comment> comments = (List<WebApplication1.Models.Comment>)ViewData["Comm"];
+    WebApplication1.Models.Entities e = new WebApplication1.Models.Entities();
+    var statusRequest = new Dictionary<String, String>();
+    statusRequest.Add("Исполнено", "✅");
+    statusRequest.Add("Отказано", "❌");
+    statusRequest.Add("Принято", "⚠");
+    statusRequest.Add("Составлена", "✉");
+    var statusComm = new Dictionary<String, String>();
+    statusComm.Add("Опубликован", "✅");
+    statusComm.Add("Отклонен", "❌");    
+    statusComm.Add("Составлен", "✉");
+    String icon;
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Изменение параметров учетной записи &#9940;&#9993;&#10004;&#9203;</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Пароль:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+            @Html.ActionLink("Смена пароля", "ChangePassword")
+            }
+            else
+            {
+            @Html.ActionLink("Создать", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>Внешние имена входа:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Управление", "ManageLogins") ]
+        </dd>
+
+        <dt>Двухфакторная проверка подлинности:</dt>
+        <dd>
+            <p>
+                Поставщики двухфакторной проверки подлинности не настроены. В <a href="http://go.microsoft.com/fwlink/?LinkId=403804">этой статье</a>
+                вы можете узнать, как настроить двухфакторную проверку подлинности в этом приложении ASP.NET.
+            </p>
+
+        </dd>
+    </dl>
+</div>
+@if (User.IsInRole("manager"))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Заявки</h1>
+            <table class="table">
+                <tr>
+                    <td>Id</td>
+                    <td>Отправитель</td>
+                    <td>Название книги</td>
+                    <td>Автор книги</td>
+                    <td>Статус</td>
+                    <td></td>
+                </tr>
+                @foreach (WebApplication1.Models.Request b in lastestRequets)
+                {
+                    statusRequest.TryGetValue(b.Status.Trim(), out icon);
+                    <tr>
+                        <td>@b.Id</td>
+                        <td>@e.AspNetUsers.Find(b.Id_sender).UserName</td>
+                        <td>@e.Books.Find(b.Id_book).Name</td>
+                        <td>@e.Books.Find(b.Id_book).Author</td>
+                        <td>@b.Status</td>
+                        <td>@icon</td>  
+                        <td>
+                            @if (!((b.Status.Trim() == "Исполнено") || (b.Status.Trim() == "Отказано")))
+                            {
+
+                                @Html.ActionLink("Редактировать", "../Request/Edit", new { id = b.Id })
+                            }
+                        </td>   
+                    </tr>
+                }
+                
+            </table>           
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Комментарии</h1>
+            <table class="table">
+                <tr>
+                    <th>Id</th>
+                    <th>Автор комментария</th>
+                    <th>Текст</th>
+                    <th>Комментируемая книга</th>                    
+                    <th>Автор книги</th>
+                    <th>Статус</th>
+                    <th></th>
+                </tr>
+                @foreach (WebApplication1.Models.Comment b in comments)
+                {
+                    statusComm.TryGetValue(b.Status.Trim(), out icon);
+                    <tr>
+                        <td>@b.Id</td>
+                        <td>@e.AspNetUsers.Find(b.Id_author).UserName</td>
+                        <td>@b.Text</td>
+                        <td>@e.Books.Find(b.Id_book).Name</td>
+                        <td>@e.Books.Find(b.Id_book).Author</td>
+                        <td>@b.Status</td>
+                        <td>@icon</td>
+                        <td>
+                            @if (!((b.Status.Trim() == "Опубликован") || (b.Status.Trim() == "Отклонен")))
+                            {
+
+                                @Html.ActionLink("Редактировать", "../Comment/Edit", new { id = b.Id })
+                            }
+                        </td>   
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}

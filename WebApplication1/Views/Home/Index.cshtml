@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    List<WebApplication1.Models.Book> allBooks = (List<WebApplication1.Models.Book>) ViewData["allBooks"];
+    WebApplication1.Models.Entities e = new WebApplication1.Models.Entities();
+    Random r = new Random();
+}
+
+<div class="jumbotron">
+    <h1>StellAge</h1>        
+            <p class="lead">
+                Электронная библиотека
+            </p>   
+    <p>@Html.ActionLink("Случайная книга", "../Book/Reading", new { id = r.Next(e.Books.Max(p => p.Id)) })</p>
+    <p><a href="~/Views/Book/Reading" class="btn btn-primary btn-lg">Случайная книга &raquo;</a></p>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Последние книги</h2>
+    @foreach (WebApplication1.Models.Book b in allBooks)
+    {
+        <p> @Html.ActionLink(b.Name, "../Book/Reading", new { id = b.Id })</p>
+    } 
+        <p>@Html.ActionLink("Еще...", "MoreBooks")</p>
+    </div>
+   
+    <div class="col-md-6">
+        <img width="350" src="https://cs7065.vk.me/c540100/v540100316/e57a/uZdjYOFXmAE.jpg" />
+    </div>
+</div>

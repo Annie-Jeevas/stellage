@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebApplication1.Models.Request>
+
+@{
+    ViewBag.Title = "MyRequests";
+}
+
+<h2>MyRequests</h2>
+
+<p>
+    @Html.ActionLink("Оставить заявку", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Книга
+        </th>
+        <th>
+            Статус
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        
+    </tr>
+}
+
+</table>

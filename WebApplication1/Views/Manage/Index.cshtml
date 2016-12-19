@@ -1,0 +1,61 @@
+﻿@model WebApplication1.Models.IndexViewModel
+@{  
+    ViewBag.Title = "Управление";
+    List<WebApplication1.Models.Book> randomBooks = (List<WebApplication1.Models.Book>)ViewData["myBooks"];
+    List<WebApplication1.Models.Request> lastestRequets = (List<WebApplication1.Models.Request>)ViewData["myReq"];    
+}
+
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Изменение параметров учетной записи</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Пароль:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Смена пароля", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Создать", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>Внешние имена входа:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Управление", "ManageLogins") ]
+        </dd>        
+    </dl>
+</div>
+<div class="row">    
+    <div class="col-md-6"> 
+        <h1>Мои книги</h1>       
+        @foreach (WebApplication1.Models.Book b in randomBooks)
+        { 
+            <div class="jumbotron">
+                <h3>Название: </h3> @b.Name
+                <h3>Автор: </h3> @b.Author
+            </div>
+        }
+        <a href="~/Book/MyBooks">Показать все...</a>
+    </div>
+    <div class="col-md-6">
+        <h1>Мои заявки</h1>
+        <table class="table">
+        @foreach (WebApplication1.Models.Request b in lastestRequets)
+        {
+            <tr>
+                <td>@b.Book.Name</td>
+                <td>@b.Status</td>
+            </tr>
+        }
+            </table>
+        <a href="~/Request/MyRequests">Показать все...</a>
+    </div>
+</div>

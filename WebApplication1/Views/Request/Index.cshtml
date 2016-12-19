@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebApplication1.Models.Request>
+
+@{
+    ViewBag.Title = "Index";
+    WebApplication1.Models.Entities e = new WebApplication1.Models.Entities();
+    
+}
+
+<h2>Редактировать состояние заявки</h2>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Отправитель</th>
+        <th>Название книги</th>
+        <th>Автор книги</th>
+        <th>Статус</th>        
+    </tr>
+
+@foreach (var b in Model) {
+    <tr>
+        <td>@b.Id</td>
+        <td>@e.AspNetUsers.Find(b.Id_sender).UserName</td>
+        <td>@e.Books.Find(b.Id_book).Name</td>
+        <td>@e.Books.Find(b.Id_book).Author</td>
+        <td>@b.Status</td>
+        <td><></td>
+    </tr>
+}
+
+</table>
